@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPH Real Time Tracker</title>
+    <meta name="author" content="Victor Zuniga Salamanca" href="https://amazon.enterprise.slack.com/team/U01NA6JAGVD">
+    <meta name="copyright" content="Victor Zuniga Salamanca">
+    <meta name="description"
+        content="This is a tool created to manage the handle time of the different tasks received at my Amazon's Department Job (KYC). It does not contain anything crucial, critical or very confidential, hence, I can share it publicly.">
+    <meta http-equiv="content-language" content="en">
+    <link rel="icon" type="image/png" href="http://imgfz.com/i/OJonqMx.png">
+    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <button id="minimizeButton" class="minimize-button">Open Timer Window</button>
+    <header style="background-color: #232F3F">
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <a target="_blank"><img src="https://i.ibb.co/Qp4kRMF/logo.png" alt="logo" border="0"
+                    style="width:250px; height:100px;"></a>
+            <div style="display: flex; align-items: center; margin-right: 20px; margin-bottom: 10px;">
+                <img src="http://imgfz.com/i/OJonqMx.png" style="width:40px; height:30px; margin-right: 10px;">
+                <h1
+                    style="color: white; font-size: 36px; font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: 2px; margin: 0;">
+                    IPH Real Time Tracker</h1>
+            </div>
+        </div>
+    </header>
+    <div style="text-align: center; margin: 20px; padding: 10px; background-color: #1a242f; border-radius: 5px;">
+        <div style="margin-bottom: 15px;">
+            <label style="color: white; font-weight: bold; margin-right: 10px;">Queue:</label>
+            <div class="checkbox-button-group">
+                <input type="checkbox" name="taskType" value="BR" id="br" class="checkbox-hidden">
+                <label for="br" class="checkbox-button">BR</label>
+
+                <input type="checkbox" name="taskType" value="OOC" id="ooc" class="checkbox-hidden">
+                <label for="ooc" class="checkbox-button">OOC</label>
+
+                <input type="checkbox" name="taskType" value="CA" id="ca" class="checkbox-hidden">
+                <label for="ca" class="checkbox-button">CA</label>
+
+                <input type="checkbox" name="taskType" value="SU" id="su" class="checkbox-hidden">
+                <label for="su" class="checkbox-button">SU</label>
+
+                <input type="checkbox" name="taskType" value="CN" id="cn" class="checkbox-hidden">
+                <label for="cn" class="checkbox-button">CN</label>
+
+                <input type="checkbox" name="taskType" value="T2" id="t2" class="checkbox-hidden">
+                <label for="t2" class="checkbox-button">T2</label>
+
+                <input type="checkbox" name="taskType" value="T3" id="t3" class="checkbox-hidden">
+                <label for="t3" class="checkbox-button">T3</label>
+
+                <input type="checkbox" name="taskType" value="CTC" id="ctc" class="checkbox-hidden">
+                <label for="ctc" class="checkbox-button">CTC</label>
+            </div>
+        </div>
+        <div>
+            <div style="display: inline-block; margin-right: 20px;">
+                <label style="color: white; font-weight: bold;">Acct Sum Timer:</label>
+                <span id="acctSumTimer" class="acct-sum-timer">00:00:00</span>
+            </div>
+            <label style="color: white; font-weight: bold; margin-right: 10px;">Sub-Tasks Type:</label>
+            <div class="checkbox-button-group">
+                <input type="checkbox" name="subTaskType" value="Acct Sum" id="accsum" class="checkbox-hidden">
+                <label for="accsum" class="checkbox-button">Acct Sum</label>
+
+                <input type="checkbox" name="subTaskType" value="IDV" id="idv" class="checkbox-hidden">
+                <label for="idv" class="checkbox-button">IDV</label>
+
+                <input type="checkbox" name="subTaskType" value="TIV" id="tiv" class="checkbox-hidden">
+                <label for="tiv" class="checkbox-button">TIV</label>
+
+                <input type="checkbox" name="subTaskType" value="BIV" id="biv" class="checkbox-hidden">
+                <label for="biv" class="checkbox-button">BIV</label>
+
+                <input type="checkbox" name="subTaskType" value="BOV" id="bov" class="checkbox-hidden">
+                <label for="bov" class="checkbox-button">BOV</label>
+
+                <input type="checkbox" name="subTaskType" value="LOA" id="loa" class="checkbox-hidden">
+                <label for="loa" class="checkbox-button">LOA</label>
+
+                <input type="checkbox" name="subTaskType" value="LRV" id="lrv" class="checkbox-hidden">
+                <label for="lrv" class="checkbox-button">LRV</label>
+            </div>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <!-- <th>Type Case</th> -->
+                <th>Action</th>
+                <th>Duration</th>
+                <th>Tasks</th>
+                <th>Minutes Goal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <!-- <td>Task</td> -->
+                <td>
+                    <button class="start-button" onclick="startTimer(false)">Start</button>
+                    <button class="stop-button" style="display: none;" onclick="stopTimer(false)">Stop</button>
+                </td>
+                <td><span class="timer">00:00:00</span></td>
+                <td id="cases-count"><span class="cases-count timer-red"
+                        style="font-weight: bold; font-size: 1.3rem;">0</span></td>
+                <td><span class="timer timer-green" style="font-weight: bold; font-size: 1.3rem;">12 </span></td>
+            </tr>
+        </tbody>
+        <tr>
+            <td colspan="5" style="text-align: center;">
+                <div class="btnsContainer" style="display: flex; justify-content: space-evenly;">
+                    <button onclick="resetData()" style="
+                    background-color: #ff4444;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin: 10px;
+                    font-weight: bold;">
+                        Reset All Data
+                    </button>
+                    <a href="#" style="
+                    background-color: rgb(160, 160, 34);
+                    color: white;
+                    padding: 10px 15px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin: 10px;
+                    font-weight: bold;
+                    text-decoration: none;
+                    font-size: .9rem;" target="_blank">
+                        Resolves Dashboard
+                    </a>
+                    <button onclick="exportToExcel()" style="
+                    background-color: #217346;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin: 10px;
+                    font-weight: bold;">
+                        Export to Excel
+                    </button>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <h2>Tasks Timer Registry</h2>
+    <div id="registry"></div>
+
+    <footer>
+        <br>
+        <p style="
+                    background-color: rgb(98, 19, 163);
+                    color: white;
+                    padding: 10px 15px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin: 10px;
+                    font-weight: bold;
+                    text-decoration: none;
+                    font-size: 1rem;">ⓒ Copyright 2025</p>
+    </footer>
+    <script src="javascript.js"></script>
+</body>
+
+</html>

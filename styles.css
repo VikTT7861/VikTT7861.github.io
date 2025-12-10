@@ -1,0 +1,380 @@
+body {
+    background-color: #232f3e;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #232F3F;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+}
+
+.title h1 {
+    color: white;
+    font-size: 36px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 0 10px;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.timer {
+    padding: 5px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.timer-green {
+    background-color: #00ff00;
+    color: black;
+}
+
+.timer-yellow {
+    background-color: #ffff00;
+    color: black;
+}
+
+.timer-red {
+    background-color: #ff0000;
+}
+
+.start-button,
+.stop-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 3px solid white;
+    transition: transform 0.2s;
+}
+
+.start-button {
+    background-color: #0066cc;
+    color: white;
+}
+
+.stop-button {
+    background-color: #cc0000;
+    color: white;
+    display: none;
+}
+
+.start-button:hover,
+.stop-button:hover {
+    transform: scale(1.1);
+}
+
+.registry-entry {
+    padding: 10px;
+    margin: 10px auto;
+    width: 80%;
+    text-align: left;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#registry {
+    margin: 20px auto;
+    width: 80%;
+}
+
+.cases-count {
+    padding: 5px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 20px;
+}
+
+.delete-button {
+    background-color: transparent;
+    color: #ff4444;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 10px;
+    transition: transform 0.2s;
+    opacity: 0.9;
+}
+
+.delete-button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.entry-content {
+    flex-grow: 1;
+}
+
+.delete-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.minimize-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.minimized {
+    position: fixed !important;
+    bottom: 20px;
+    right: 20px;
+    width: 300px !important;
+    height: 200px !important;
+    background-color: #232f3e;
+    border: 2px solid #0066cc;
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 9999;
+    overflow: auto;
+    resize: both;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.minimized header,
+.minimized .header,
+.minimized footer,
+.minimized h2,
+.minimized #registry {
+    display: none !important;
+}
+
+.minimized table {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+.maximized-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.drag-handle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background-color: #0066cc;
+    cursor: move;
+    border-radius: 10px 10px 0 0;
+}
+
+.popup-content {
+    background-color: #232f3e;
+    color: white;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.popup-timer {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.popup-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.popup-button {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.timer-green {
+    background-color: #00ff00;
+    color: black;
+}
+
+.timer-yellow {
+    background-color: #ffff00;
+    color: black;
+}
+
+.timer-red {
+    background-color: #ff0000;
+    color: white;
+}
+
+.timer-black {
+    background-color: #000000;
+    color: white;
+}
+
+.alert-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #232f3e;
+    border: 3px solid #ff0000;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    color: white;
+    text-align: center;
+    min-width: 400px;
+}
+
+.alert-popup h2 {
+    color: #ff0000;
+    margin-bottom: 20px;
+}
+
+.alert-popup a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.alert-popup a:hover {
+    text-decoration: underline;
+}
+
+.alert-popup button {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.alert-popup button:hover {
+    background-color: #cc0000;
+}
+
+.timer-blue {
+    background-color: #007bff;
+    color: white;
+}
+
+.checkbox-button-group {
+    display: inline-flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.checkbox-hidden {
+    display: none;
+}
+
+.checkbox-button {
+    padding: 8px 16px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    user-select: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.checkbox-button:hover {
+    background-color: #333333;
+}
+
+.checkbox-hidden:checked+.checkbox-button {
+    background-color: #464646;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+}
+
+.checkbox-hidden:disabled+.checkbox-button {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #666666;
+}
+
+.acct-sum-timer {
+    padding: 5px;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+
+/* Make sure these color classes are available */
+
+.timer-green {
+    background-color: #00ff00;
+    color: black;
+}
+
+.timer-yellow {
+    background-color: #ffff00;
+    color: black;
+}
+
+.timer-red {
+    background-color: #ff0000;
+    color: white;
+}
+
+.timer-black {
+    background-color: #000000;
+    color: white;
+}
